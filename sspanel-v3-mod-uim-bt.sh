@@ -31,14 +31,13 @@ clear
 #宝塔sspanel-v3-mod-uim快速部署工具
 echo -e "感谢使用 “\033[32m 宝塔sspanel-v3-mod-uim快速部署工具 \033[0m”"
 echo "----------------------------------------------------------------------------"
-echo -e "请注意这些要求:“\033[31m 宝塔版本=5.9 \033[0m”，添加网址PHP版本必须选择为“\033[31m PHP7.1 \033[0m”,添加完成后地址不要改动！"
+echo -e "请注意这些要求:“\033[31m 宝塔版本=5.9 \033[0m”，添加网址PHP版本必须选择为“\033[31m PHP7.4 \033[0m”,添加完成后地址不要改动！"
 echo "----------------------------------------------------------------------------"
 stty erase '^H' && read -p "请输入宝塔面板添加的网站域名,请不要修改添加之后的默认地址（例如:www.baidu.com，不带http/https）：" website
 stty erase '^H' && read -p "请输入宝塔面板添加的MySQL用户名：" mysqlusername
 stty erase '^H' && read -p "请输入宝塔面板添加的MySQL数据库名：" mysqldatabase
 stty erase '^H' && read -p "请输入宝塔面板添加的MySQL密码：" mysqlpassword
 stty erase '^H' && read -p "请输入网站的mukey(用于webapi方式对接后端，可以自定义)：" sspanelmukey
-sleep 1
 echo -e "${Info} 请确认您输入的网站域名：$website"
 echo -e "${Info} 请确认您输入的MySQL用户名：$mysqlusername"
 echo -e "${Info} 请确认您输入的MySQL用户名：$mysqldatabase"
@@ -111,13 +110,9 @@ sed -i "s/sspanel-db-password/$mysqlpassword/g" /www/wwwroot/$website/config/.co
 echo -e "${Info} 配置站点基本信息已完成"
 ##下载IP解析库  下载ssr程式
 echo -e "${Info} 正在下载ip解析库"
-sleep 1
 echo -e "${Info} 下载ip解析库已完成"
-sleep 1
 echo -e "${Info} 正在下载ssr程式"
-sleep 1
 echo -e "${Info} 下载ssr程式已完成"
-sleep 1
 ##加入定时任务
 echo -e "${Info} 正在添加定时任务"
 echo "30 22 * * * php /www/wwwroot/$website/xcat sendDiaryMail" >> /var/spool/cron/root
@@ -127,16 +122,13 @@ echo "*/1 * * * * php /www/wwwroot/$website/xcat syncnode" >> /var/spool/cron/ro
 chkconfig –level 35 crond on
 /sbin/service crond restart
 echo -e "${Info} 添加定时任务已完成"
-sleep 1
 ##重启php和nginx
 echo -e "${Info} 正在重启PHP"
 /etc/init.d/php-fpm-71 restart
 echo -e "${Info} 重启PHP已完成"
-sleep 1
 echo -e "${Info} 正在重启NGINX"
 /etc/init.d/nginx restart
 echo -e "${Info} 重启NGINX已完成"
-sleep 3
 echo "--------------------------------------------------------------------------------"
 echo -e "${Info} 部署完成，请打开http://$website即可浏览"
 echo -e "${Info} 默认生成的管理员用户名：admin 密码为7colorblog"
